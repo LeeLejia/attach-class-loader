@@ -1,0 +1,15 @@
+{
+  "name": "attach-class-loader",
+  "version": "1.0.0",
+  "description": "attach-class-loader 用于在项目打包阶段在xml模版指定节点添加class",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "loader-utils": "^1.2.3"
+  }
+}
