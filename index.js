@@ -21,9 +21,9 @@ function attachClassLoader(source) {
     return source
   }
   const rootSelector = docType.rootSelector
-  $ = cheerio.load(source, {
+  $ = cheerio.load('stupidOption', source, {
     decodeEntities: false,
-    xmlMode: true
+    xmlMode: false
   });
   if (!$.length) {
     // 非dom对象
