@@ -7,8 +7,8 @@ const defaultConfig = {
   // 是否处理只有文本的Div节点
   textDiv: true,
   nodeMap: [
-    { test: /.html/, rootSelector: 'body' },
-    { test: /.vue/, rootSelector: 'template' }
+    { test: /.html/, nodeName: 'body' },
+    { test: /.vue/, nodeName: 'template' }
   ]
 }
 
@@ -20,33 +20,28 @@ function attachClassLoader(source) {
   if (!docType) {
     return source
   }
-  const rootSelector = docType.rootSelector
-  $ = cheerio.load('stupidOption', source, {
-    decodeEntities: false,
-    xmlMode: false
-  });
-  if (!$.length) {
-    // 非dom对象
-    return source;
-  }
-
-  // 处理
-  function tranf(node) {
-    const textBlock = node.find(config.tranfSelector)
+  const nodeName = docType.nodeName
+  return source.replace(new RegExp(`<${nodeName}[^>]*>[\\s\\S]*<\/[^>]*${nodeName}>`, 'ig'), node => {
+    $ = cheerio.load(node, {
+      decodeEntities: false,
+      xmlMode: true
+    });
+    if (!$.length) {
+      // 非dom对象
+      return node;
+    }
+    const textBlock = $(config.tranfSelector)
     textBlock.addClass(config.tranfClass)
     if (config.textDiv) {
-      const divList = node.find('div')
+      const divList = $('div,li')
       divList.filter(function () {
-        return $(this).children().length === 0;
+        return $(this).children().filter(function () {
+          return !['span'].includes(this.name)
+        }).length === 0
       }).addClass(config.tranfClass)
     }
-  }
-  const root = $(rootSelector)
-  if (!root.length) {
-    return source
-  }
-  tranf(root)
-  return $.html()
+    return $.html()
+  })
 }
 
 module.exports = attachClassLoader;

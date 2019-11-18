@@ -15,8 +15,8 @@ attach-class-loader 用于在项目打包阶段在 xml 模版指定节点添加 
   textDiv: true,
   // 文件名和对应开始处理的节点
   nodeMap: [
-    { test: /.html/, rootSelector: "body" },
-    { test: /.vue/, rootSelector: "template" }
+    { test: /.html/, nodeName: "body" },
+    { test: /.vue/, nodeName: "template" }
   ]
 }
 ```

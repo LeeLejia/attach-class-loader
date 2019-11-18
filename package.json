@@ -1,6 +1,6 @@
 {
   "name": "attach-class-loader",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "attach-class-loader 用于在项目打包阶段在xml模版指定节点添加class",
   "main": "index.js",
   "scripts": {
